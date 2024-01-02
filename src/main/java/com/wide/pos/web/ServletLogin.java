@@ -28,6 +28,8 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.removeAttribute("user_context");
 		request.getRequestDispatcher(pathLoginPage).forward(request,response);
 	}
 
@@ -38,7 +40,7 @@ public class ServletLogin extends HttpServlet {
 		String nama = request.getParameter("nama");
 		String password = request.getParameter("password");
 		
-		if("ira".equalsIgnoreCase(nama) && "123".equals(password)) {
+		if("adhi".equalsIgnoreCase(nama) && "123".equals(password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user_context",nama);
 			response.sendRedirect("pos.do");

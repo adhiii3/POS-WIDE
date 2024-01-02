@@ -202,12 +202,7 @@ public class ServletPOS extends HttpServlet {
 				saleUseCase = null;
 				removeSessionSale(request);
 
-				pageName = "detail-history-transaksi";
-				request.setAttribute("page", pageName);
-				request.setAttribute("sales", saleService.findSaleBySaleNumber(saleNumber));
-				
-				request.getRequestDispatcher(basePage).forward(request, response);
-				
+				response.sendRedirect("http://localhost:8080/WidePos/pos.do?action=detail-history-transaksi&id="+saleNumber); 
 			} catch (UseCaseSaleException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -240,11 +235,18 @@ public class ServletPOS extends HttpServlet {
 					boolean isTax = Boolean.parseBoolean(request.getParameter("isTax"));
 					Item item = new Item(itemCode, price, description, type, isTax);
 					itemService.updateItem(itemCode, item);
-					
-					response.sendRedirect("http://localhost:8080/WidePos/pos.do?action=items"); 
 				} catch (UseCaseSaleException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+		}else if("delete_item".equals(action)) {
+			try {
+				String itemCode = request.getParameter("itemCode");
+				itemService.deleteItem(itemCode);
+			} catch (UseCaseSaleException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

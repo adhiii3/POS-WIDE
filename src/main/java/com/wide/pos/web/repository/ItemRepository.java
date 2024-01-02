@@ -16,4 +16,6 @@ public interface ItemRepository {
 	public void save(Item item) throws RepositoryException;
 	
 	public void update(String itemCode, Item item) throws RepositoryException;
+	
+	public void delete(String itemCode) throws RepositoryException;
 }

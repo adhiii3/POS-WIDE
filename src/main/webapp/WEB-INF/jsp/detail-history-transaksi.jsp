@@ -12,6 +12,9 @@
 <body>
 	<h1>Detail Order Transaksi</h1>
 	<div class="table-responsive">
+				<p> Sale Number : ${sales.getSalesNumber()}</p>
+				<p> Nama Kasir : ${sales.getCashier().getName()}</p>
+				<p> Sale Date : ${sales.getTransDate()}</p>
 		<form action="#" method="post">
 			<table border="1" id="table-pembayaran" class="table table-striped table-sm">
 				<tr>

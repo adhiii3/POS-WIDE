@@ -156,5 +156,26 @@ public class ItemDummyMysqlRepository implements ItemRepository{
 		
 	}
 
+	@Override
+	public void delete(String itemCode) throws RepositoryException {
+		
+		try (Connection connection = DataSource.getDataSource()){
+			connection.setAutoCommit(false);
+			String SQL_ITEM_UPDATE = "DELETE  FROM item WHERE item_code = ?";
+			
+			PreparedStatement ps = connection.prepareStatement(SQL_ITEM_UPDATE);
+			ps.setString(1, itemCode);
+			int result = ps.executeUpdate();
+			
+			connection.commit();
+		}catch (SQLException e) {
+			throw new RepositoryException(e.getMessage());
+		} 
+		catch (Exception e) {
+			throw new RepositoryException(e.getMessage());
+		}
+		
+	}
+
 
 }

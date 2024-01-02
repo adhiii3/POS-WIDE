@@ -55,7 +55,14 @@ public class ItemService {
 		}catch(RepositoryException e) {
 			throw new UseCaseSaleException(e.getMessage());
 		}
-		
+	}
+	
+	public void deleteItem(String itemCode) throws UseCaseSaleException{
+		try {
+			itemRepository.delete(itemCode);
+		}catch(RepositoryException e) {
+			throw new UseCaseSaleException(e.getMessage());
+		}
 	}
 	
 }
