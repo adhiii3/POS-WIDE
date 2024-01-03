@@ -37,6 +37,9 @@
 							<a href = "pos.do?action=form-update&id=${item.itemCode}">
 								<button type="button" class="btn btn-primary btn-sm">Update</button>
 							</a>
+							<a href = "pos.do?action=delete_item&id=${item.itemCode}">
+								<button type="button" class="btn btn-danger btn-sm">delete</button>
+							</a>
 						</td>
 					</tr>
 				</c:forEach>

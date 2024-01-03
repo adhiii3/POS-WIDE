@@ -42,11 +42,9 @@ public class ServletPOS extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final SaleService saleService = new SaleService();
-
 	private final ItemService itemService = new ItemService();
 	private final ItemCartService itemCartService = new ItemCartService();
 	private final String basePage = "WEB-INF/jsp/dashboard.jsp";
-	private final List<Item> items = new ArrayList<>();
 	Cashier cashier = null;
 	ProsesUseCaseSale saleUseCase = null;
 
@@ -103,7 +101,19 @@ public class ServletPOS extends HttpServlet {
 				String id = request.getParameter("id");
 				pageName = "form-update";
 				request.setAttribute("item", itemService.findItemByCode(id));
-			}else {
+			}else if("delete_item".equals(action)) {
+				try {
+					String itemCode = request.getParameter("id");
+					itemService.deleteItem(itemCode);
+					System.out.print("Oke");
+					response.sendRedirect("http://localhost:8080/WidePos/pos.do?action=items"); 
+					return;
+				} catch (UseCaseSaleException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else {
 				if (saleUseCase == null) {
 					pageName = "create-order";
 				} else {
@@ -159,7 +169,6 @@ public class ServletPOS extends HttpServlet {
 		}else if ("deleteCartPerItem".equals(action)) {
 			String id = request.getParameter("id");
 			itemCartService.removeItemById(id);
-		
 		} else if ("deleteItemCart".equals(action)) {
 			String itemCode = request.getParameter("id");
 			saleUseCase.deleteSaleItem(itemCode);
@@ -239,14 +248,6 @@ public class ServletPOS extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		}else if("delete_item".equals(action)) {
-			try {
-				String itemCode = request.getParameter("itemCode");
-				itemService.deleteItem(itemCode);
-			} catch (UseCaseSaleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
 	}
 
